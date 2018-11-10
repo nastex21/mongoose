@@ -1,3 +1,6 @@
+require('dotenv').config();
+const mongoose = require('mongoose');
+
 /**********************************************
 * 3. FCC Mongo & Mongoose Challenges
 * ==================================
@@ -11,10 +14,14 @@
 // Add `mongodb` and `mongoose` to the project's `package.json`. Then require 
 // `mongoose`. Store your **mLab** database URI in the private `.env` file 
 // as `MONGO_URI`. Connect to the database using `mongoose.connect(<Your URI>)`
-
+/* const config = {
+  autoIndex: false,
+  useNewUrlParser: true,
+};*/
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true }); 
 
 /** # SCHEMAS and MODELS #
-/*  ====================== */
+/*  ====================== *
 
 /** 2) Create a 'Person' Model */
 
@@ -263,7 +270,6 @@ var queryChain = function(done) {
 // * Validation,
 // * Schema Virtuals and  Model, Static, and Instance methods,
 // * and much more in the [mongoose docs](http://mongoosejs.com/docs/)
-
 
 //----- **DO NOT EDIT BELOW THIS LINE** ----------------------------------
 
