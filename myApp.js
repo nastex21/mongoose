@@ -45,7 +45,13 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
 
 // <Your code here >
 
-var Person /* = <Your Model> */
+var personSchema = new mongoose.Schema({
+  name: String,
+  age: Number,
+  favoriteFoods: []
+})
+
+ var Person = mongoose.model('Person', personSchema);
 
 // **Note**: GoMix is a real server, and in real servers interactions with
 // the db are placed in handler functions, to be called when some event happens
@@ -83,10 +89,19 @@ var Person /* = <Your Model> */
 // });
 
 var createAndSavePerson = function(done) {
-  
-  done(null /*, data*/);
-
-};
+  var johnnyBoy = new Person ({
+    name: "John",
+    age: 32,
+    favoriteFoods: ["tacos", "fish"]
+  })
+  johnnyBoy.save(function (err, data) {
+  if (err){
+    return done(err)
+  } else {
+    done(null, data);
+  }
+  })
+}
 
 /** 4) Create many People with `Model.create()` */
 
