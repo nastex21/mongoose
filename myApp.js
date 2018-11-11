@@ -48,7 +48,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
 var personSchema = new mongoose.Schema({
   name: String,
   age: Number,
-  favoriteFoods: []
+  favoriteFoods: [String]
 })
 
  var Person = mongoose.model('Person', personSchema);
@@ -217,7 +217,18 @@ var findPersonById = function(personId, done) {
 var findEditThenSave = function(personId, done) {
   var foodToAdd = 'hamburger';
   
-  done(null/*, data*/);
+  Person.findById({_id: personId}, function(err, data){
+   
+    data.favoriteFoods.push(foodToAdd);
+
+    data.save(function (err, data) {
+      if (err){
+        return done(err)
+      } else {
+        done(null, data)
+      }
+    });
+  } )
 };
 
 /** 9) New Update : Use `findOneAndUpdate()` */
