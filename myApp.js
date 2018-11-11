@@ -179,8 +179,14 @@ var findOneByFood = function(food, done) {
 
 var findPersonById = function(personId, done) {
   
-  done(null/*, data*/);
-  
+  Person.findById({_id: personId}, function(err, data){
+  if (err){
+      return done(err)
+    } else {
+      done(null, data)
+    }
+  }
+)
 };
 
 /** # CR[U]D part III - UPDATE # 
