@@ -249,7 +249,13 @@ var findEditThenSave = function(personId, done) {
 var findAndUpdate = function(personName, done) {
   var ageToSet = 20;
 
-  done(null/*, data*/);
+  Person.findOneAndUpdate({ name: personName },{age: ageToSet}, { new: true }, function(err, data){
+    if (err){
+      return done(err)
+    } else {
+      done(null, data)
+    }
+  })
 };
 
 /** # CRU[D] part IV - DELETE #
@@ -264,9 +270,14 @@ var findAndUpdate = function(personName, done) {
 
 var removeById = function(personId, done) {
   
-  done(null/*, data*/);
-    
-};
+  Person.findByIdAndRemove(personId, function(err, data){
+    if (err){
+      return done(err)
+    } else {
+      done(null, data)
+    }
+  })
+}           
 
 /** 11) Delete many People */
 
